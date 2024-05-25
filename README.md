@@ -1,1 +1,1 @@
-# fiap-git-actions
+# fiap-github-actions
