@@ -26,7 +26,7 @@ jobs:
     needs:
       - docket_hub
     environment:
-      name: release
+      name: production
     name: Ready to deploy ?
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
