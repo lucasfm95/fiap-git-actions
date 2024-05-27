@@ -22,11 +22,25 @@ jobs:
         context: .
         tags: 'lucasfm95/fiap-github-actions:latest'
         push: true
+  release:
+    needs:
+      - docket_hub
+    environment:
+      name: release
+    name: Ready to deploy ?
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
   
   approval-gate:
     name: Deploy on render
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs:
+      - release
     steps:
       - name: Send deploy render
         uses: Tyrrrz/action-http-request@1.1.2
